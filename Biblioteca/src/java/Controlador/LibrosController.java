@@ -108,6 +108,12 @@ public class LibrosController implements Serializable {
         selectedItemIndex = pagination.getPageFirstItem() + getItems().getRowIndex();
         return "View";
     }
+    
+     public String prepareFilm() {
+        current = (Libros) getItems().getRowData();
+        selectedItemIndex = pagination.getPageFirstItem() + getItems().getRowIndex();
+        return "peliculas";
+    }
 
     public String prepareCreate() {
         current = new Libros();

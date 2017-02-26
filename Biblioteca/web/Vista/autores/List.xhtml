@@ -42,9 +42,19 @@
                         <p:column headerText="Foto">
                             <p:lightBox styleClass="imagebox" id="lighbox1">
                                     <h:outputLink value="../../resources/Autores/#{item.foto}" title="#{item.nomAutor} #{item.apellido1} #{item.apellido2} "> 
-                                            <p:graphicImage library="Autores" height="30px"  name="#{item.foto}" />
+                                            <p:graphicImage library="Autores" height="50px"  name="#{item.foto}" />
                                     </h:outputLink>
                              </p:lightBox>
+                        </p:column>
+                        <p:column headerText="Libros" style="width: 300px">
+                            <h:selectManyListbox id="losLibros" style="height: 50px; border: none; background-color: none; font-size: medium;" disabled="true">
+                                <f:selectItems value="#{item.librosCollection}" var="libro" itemValue="#{libro}" itemLabel="#{libro.nomLibro}"/>
+                            </h:selectManyListbox>
+                        </p:column>
+                        <p:column headerText="Premios" style="width: 300px">
+                            <h:selectManyListbox id="losPremios" style="height: 50px; border: none; background-color: none; font-size: medium;" disabled="true">
+                                <f:selectItems value="#{item.autorPremioCollection}" var="premio" itemValue="#{premio}" itemLabel="#{premio.premios.nomPremio}"/>
+                            </h:selectManyListbox>
                         </p:column>
                         <p:column headerText="Localidad">
                             <h:outputText value="#{item.localidad}"/>

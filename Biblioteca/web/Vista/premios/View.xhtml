@@ -22,7 +22,7 @@
                     <h:outputText value="#{bundle.ViewPremiosLabel_tipo}"/>
                     <h:outputText value="#{premiosController.selected.tipo}" title="#{bundle.ViewPremiosTitle_tipo}"/>
                     <h:outputText value="#{bundle.ViewPremiosLabel_codPais}"/>
-                    <h:outputText value="#{premiosController.selected.codPais}" title="#{bundle.ViewPremiosTitle_codPais}"/>
+                    <h:outputText value="#{premiosController.selected.codPais.nomPais}" title="#{bundle.ViewPremiosTitle_codPais}"/>
                 </h:panelGrid>
                 <br />
                 <h:commandLink action="#{premiosController.destroyAndView}" value="#{bundle.ViewPremiosDestroyLink}"/>

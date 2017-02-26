@@ -44,9 +44,9 @@
                         </p:lightBox>
                     </p:column>
                     <p:column headerText="Pelicula" style="text-align: center; width: 60px">
-                        <h:outputLink value="../libros/peliculas.xhtml">
+                        <h:commandLink action="#{librosController.prepareFilm}" >
                             <p:graphicImage library="Iconos" height="35px" name="trailer.png" id="icono" style="display:#{librosController.mostrar(item)}"/>
-                        </h:outputLink>
+                        </h:commandLink>
                     </p:column>
                    <p:column style="width: 120px">
                        <h:commandLink action="#{librosController.prepareView}" value="#{bundle.ListLibrosViewLink}"/>

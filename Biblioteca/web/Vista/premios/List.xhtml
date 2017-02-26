@@ -3,59 +3,46 @@
 <html xmlns="http://www.w3.org/1999/xhtml"
       xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
       xmlns:h="http://xmlns.jcp.org/jsf/html"
-      xmlns:f="http://xmlns.jcp.org/jsf/core">
+      xmlns:f="http://xmlns.jcp.org/jsf/core"
+      xmlns:p="http://primefaces.org/ui">
 
     <ui:composition template="/template.xhtml">
         <ui:define name="title">
-            <h:outputText value="#{bundle.ListPremiosTitle}"></h:outputText>
+            <h:outputText value="Listado de Premios"></h:outputText>
         </ui:define>
         <ui:define name="body">
             <h:form styleClass="jsfcrud_list_form">
-                <h:panelGroup id="messagePanel" layout="block">
-                    <h:messages errorStyle="color: red" infoStyle="color: green" layout="table"/>
-                </h:panelGroup>
-                <h:outputText escape="false" value="#{bundle.ListPremiosEmpty}" rendered="#{premiosController.items.rowCount == 0}"/>
-                <h:panelGroup rendered="#{premiosController.items.rowCount > 0}">
-                    <h:outputText value="#{premiosController.pagination.pageFirstItem + 1}..#{premiosController.pagination.pageLastItem + 1}/#{premiosController.pagination.itemsCount}"/>&nbsp;
-                    <h:commandLink action="#{premiosController.previous}" value="#{bundle.Previous} #{premiosController.pagination.pageSize}" rendered="#{premiosController.pagination.hasPreviousPage}"/>&nbsp;
-                    <h:commandLink action="#{premiosController.next}" value="#{bundle.Next} #{premiosController.pagination.pageSize}" rendered="#{premiosController.pagination.hasNextPage}"/>&nbsp;
-                    <h:dataTable value="#{premiosController.items}" var="item" border="0" cellpadding="2" cellspacing="0" rowClasses="jsfcrud_odd_row,jsfcrud_even_row" rules="all" style="border:solid 1px">
-                        <h:column>
-                            <f:facet name="header">
-                                <h:outputText value="#{bundle.ListPremiosTitle_codPremio}"/>
-                            </f:facet>
-                            <h:outputText value="#{item.codPremio}"/>
-                        </h:column>
-                        <h:column>
-                            <f:facet name="header">
-                                <h:outputText value="#{bundle.ListPremiosTitle_nomPremio}"/>
-                            </f:facet>
-                            <h:outputText value="#{item.nomPremio}"/>
-                        </h:column>
-                        <h:column>
-                            <f:facet name="header">
-                                <h:outputText value="#{bundle.ListPremiosTitle_tipo}"/>
-                            </f:facet>
-                            <h:outputText value="#{item.tipo}"/>
-                        </h:column>
-                        <h:column>
-                            <f:facet name="header">
-                                <h:outputText value="#{bundle.ListPremiosTitle_codPais}"/>
-                            </f:facet>
-                            <h:outputText value="#{item.codPais}"/>
-                        </h:column>
-                        <h:column>
-                            <f:facet name="header">
-                                <h:outputText value="&nbsp;"/>
-                            </f:facet>
-                            <h:commandLink action="#{premiosController.prepareView}" value="#{bundle.ListPremiosViewLink}"/>
-                            <h:outputText value=" "/>
-                            <h:commandLink action="#{premiosController.prepareEdit}" value="#{bundle.ListPremiosEditLink}"/>
-                            <h:outputText value=" "/>
-                            <h:commandLink action="#{premiosController.destroy}" value="#{bundle.ListPremiosDestroyLink}"/>
-                        </h:column>
-                    </h:dataTable>
-                </h:panelGroup>
+                <p:dataTable value="#{premiosController.items}" var="item"
+                                 rows="10"
+                                 paginator="true"
+                                 paginatorTemplate="{CurrentPageReport} {FirstPageLink} {PreviousPageLink} {PageLinks} {NextPageLink} {LastPageLink} {RowsPerPageDropdown}"
+                                 rowsPerPageTemplate="5,10,15">
+                    <p:column headerText="Cód." width="5%" style="text-align: center">
+                        <h:outputText value="#{item.codPremio}"/>
+                    </p:column>
+                    <p:column headerText="Nombre Premio" width="70%">
+                        <h:outputText value="#{item.nomPremio}"/>
+                    </p:column>
+                    <p:column headerText="Tipo" width="5%" style="text-align: center">
+                        <h:outputText value="#{item.tipo}"/>
+                    </p:column>
+                    <p:column headerText="Pais" width="5%" style="text-align: center">
+                        <h:outputText value="#{item.codPais.nomPais}"/>
+                        <br/>
+                         <p:lightBox styleClass="imagebox" id="lighbox1">
+                            <h:outputLink value="../../resources/Banderas/#{item.codPais.bandera}" title="#{item.codPais.nomPais}"> 
+                                     <p:graphicImage library="Banderas" height="30px"   name="#{item.codPais.bandera}" />
+                            </h:outputLink>
+                         </p:lightBox>
+                    </p:column>
+                    <p:column headerText="" width="10%">
+                        <h:commandLink action="#{premiosController.prepareView}" value="#{bundle.ListPremiosViewLink}"/>
+                        <h:outputText value=" "/>
+                        <h:commandLink action="#{premiosController.prepareEdit}" value="#{bundle.ListPremiosEditLink}"/>
+                        <h:outputText value=" "/>
+                        <h:commandLink action="#{premiosController.destroy}" value="#{bundle.ListPremiosDestroyLink}"/>
+                    </p:column>
+                </p:dataTable>
                 <br />
                 <h:commandLink action="#{premiosController.prepareCreate}" value="#{bundle.ListPremiosCreateLink}"/>
                 <br />
