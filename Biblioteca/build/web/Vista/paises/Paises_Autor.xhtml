@@ -1,0 +1,44 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
+      xmlns:h="http://xmlns.jcp.org/jsf/html"
+      xmlns:f="http://xmlns.jcp.org/jsf/core"
+      xmlns:p="http://primefaces.org/ui">
+
+    <ui:composition template="/template.xhtml">
+        <ui:define name="title">
+            <h:outputText value="Paises por autor"></h:outputText>
+        </ui:define>
+        <ui:define name="body">
+            
+            <h:form styleClass="jsfcrud_list_form">
+                <h:selectOneMenu id="unPais" value="#{autoresController.codPais}">
+                    <f:selectItems value="#{paisesController.itemsAvailableSelectOne}"></f:selectItems>
+                    <p:ajax listener="#{autoresController.obtener_autores_paises}" update="premios"/>
+                </h:selectOneMenu>
+                <br />
+                <br />
+                <p:dataTable value="#{autoresController.lista}" var="item"   id="premios" style="margin-bottom: 60px; width:20%; float: left">
+                    <p:column headerText="Nombre" sortBy="#{item.nomAutor}" style="width:150px">
+                        <h:outputText value="#{item.nomAutor}" style="font-weight: bold; font-size: 18px; color: #01579B"/>
+                    </p:column>
+                    <p:column headerText="Primer apellido" sortBy="#{item.apellido1}" style="text-align: center; width: 150px ">
+                        <h:outputText value="#{item.apellido1}" style="font-weight: bold; font-size: 18px; color: #01579B"/>
+                    </p:column>
+                     <p:column headerText="Segundo apellido" sortBy="#{item.apellido2}" style="text-align: center; width: 150px">
+                        <h:outputText value="#{item.apellido2}" style="font-weight: bold; font-size: 18px; color: #01579B"/>
+                    </p:column>
+                    <p:column headerText="Foto" width="80px" style="text-align: center; width: 150px">
+                        <p:lightBox styleClass="imagebox" id="lighbox1">
+                            <h:outputLink value="../../resources/Autores/#{item.foto}" title="#{item.nomAutor} #{item.apellido1} #{item.apellido2}"> 
+                                   <p:graphicImage library="Autores" height="100px" width="100px"  name="#{item.foto}" />
+                            </h:outputLink>
+                        </p:lightBox>
+                    </p:column>
+                </p:dataTable>
+            </h:form>
+        </ui:define>
+    </ui:composition>
+
+</html>

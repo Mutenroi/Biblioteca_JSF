@@ -1,0 +1,35 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
+      xmlns:h="http://xmlns.jcp.org/jsf/html"
+      xmlns:f="http://xmlns.jcp.org/jsf/core"
+      xmlns:p="http://primefaces.org/ui">
+
+    <ui:composition template="/template.xhtml">
+        <ui:define name="title">
+            <h:outputText value="Premios por autor"></h:outputText>
+        </ui:define>
+        <ui:define name="body">
+            <h:form styleClass="jsfcrud_list_form">
+                <h:selectOneMenu id="unAutor" value="#{premiosController.codAutor}">
+                    <f:selectItems value="#{autoresController.itemsAvailableSelectOne}"></f:selectItems>
+                    <p:ajax listener="#{premiosController.obtener_premios_autor}" update="premios"/>
+                </h:selectOneMenu>
+                
+                <br />
+                <br />
+            
+                 <p:dataTable value="#{premiosController.lista}" var="item" id="premios"  style="margin-bottom: 60px; width:60%; float: left">
+                    <p:column headerText="Premios" sortBy="#{item.premios}" style="text-align: left">
+                        <h:outputText value="#{item.premios.nomPremio}" style="font-weight: bold; font-size: 18px; color: #01579B"/>
+                    </p:column>
+                    <p:column headerText="Año" sortBy="#{item.autorPremioPK.ano}" style="text-align: center; width: 50px">
+                        <h:outputText value="#{item.autorPremioPK.ano}" style="font-weight: bold; font-size: 18px; color: #01579B"/>
+                    </p:column>
+                </p:dataTable>
+            </h:form>
+        </ui:define>
+    </ui:composition>
+
+</html>

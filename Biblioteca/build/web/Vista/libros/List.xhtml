@@ -1,0 +1,68 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
+      xmlns:h="http://xmlns.jcp.org/jsf/html"
+      xmlns:f="http://xmlns.jcp.org/jsf/core"
+      xmlns:p="http://primefaces.org/ui">
+
+    <ui:composition template="/template.xhtml">
+        <ui:define name="title">
+            <h:outputText value="Listado Libros"></h:outputText>
+        </ui:define>
+        <ui:define name="body">
+            <h:form styleClass="jsfcrud_list_form">
+                <p:dataTable value="#{librosController.items}" var="item"
+                            rows="10"
+                            paginator="true"
+                            paginatorTemplate="{CurrentPageReport} {FirstPageLink} {PreviousPageLink} {PageLinks} {NextPageLink} {LastPageLink} {RowsPerPageDropdown}"
+                            rowsPerPageTemplate="5,10,15">
+                    <p:column  headerText="Cod." sortBy="#{item.codLibro}" style="width: 60px; text-align: center" >
+                       <h:outputText value="#{item.codLibro}"/>
+                   </p:column>
+                    <p:column headerText="Nombre" sortBy="#{item.nomLibro}" style="width: 400px">
+                       <h:outputText value="#{item.nomLibro}"/>
+                   </p:column>
+                   <p:column headerText="Año" sortBy="#{item.ano}" style="width: 50px; text-align: center">
+                       <h:outputText value="#{item.ano}"/>
+                   </p:column>
+                    <p:column headerText="Autor" style="width: 300px">
+                        <h:selectManyListbox id="losAutores" style="height: 50px; border: none; background-color: none; font-size: medium;" disabled="true">
+                            <f:selectItems value="#{item.autoresCollection}" var="escritor" itemValue="#{escritor}" itemLabel="#{escritor.nomAutor} #{escritor.apellido1} #{escritor.apellido2}"/>
+                        </h:selectManyListbox>
+                   </p:column>
+                    <p:column headerText="Premios" style="width: 250px">
+                        <h:selectManyListbox id="losPremios" style="height: 50px; border: none; background-color: none; font-size: medium; " disabled="true">
+                            <f:selectItems value="#{item.premiosCollection}" var="premios" itemValue="#{premios}" itemLabel="#{premios.nomPremio}"/>
+                        </h:selectManyListbox>
+                   </p:column>
+                    <p:column headerText="Portada" style="text-align: center; width: 60px">
+                        <p:lightBox styleClass="imagebox" id="lighbox1">
+                            <h:outputLink value="../../resources/Portadas/#{item.portada}" title="#{item.nomLibro}, #{item.ano}"> 
+                                   <p:graphicImage library="Portadas" height="75px" width="55px"  name="#{item.portada}" />
+                            </h:outputLink>
+                        </p:lightBox>
+                    </p:column>
+                    <p:column headerText="Pelicula" style="text-align: center; width: 60px">
+                        <h:outputLink value="../libros/peliculas.xhtml">
+                            <p:graphicImage library="Iconos" height="35px" name="trailer.png" id="icono" style="display:#{librosController.mostrar(item)}"/>
+                        </h:outputLink>
+                    </p:column>
+                   <p:column style="width: 120px">
+                       <h:commandLink action="#{librosController.prepareView}" value="#{bundle.ListLibrosViewLink}"/>
+                       <h:outputText value=" "/>
+                       <h:commandLink action="#{librosController.prepareEdit}" value="#{bundle.ListLibrosEditLink}"/>
+                       <h:outputText value=" "/>
+                       <h:commandLink action="#{librosController.destroy}" value="#{bundle.ListLibrosDestroyLink}"/>
+                   </p:column>
+                </p:dataTable>
+                <br />
+                <h:commandLink action="#{librosController.prepareCreate}" value="#{bundle.ListLibrosCreateLink}"/>
+                <br />
+                <br />
+                <h:link outcome="/index" value="#{bundle.ListLibrosIndexLink}"/>
+            </h:form>
+        </ui:define>
+    </ui:composition>
+
+</html>

@@ -1,0 +1,43 @@
+<?xml version='1.0' encoding='UTF-8' ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:h="http://xmlns.jcp.org/jsf/html"
+      xmlns:p="http://primefaces.org/ui">
+    <h:head>
+        <title>Facelet Title</title>
+        <h:outputStylesheet name="css/jsfcrud.css"/>
+    </h:head>
+    <h:body>
+  <h:form>
+    <p:growl id="messages" showDetail="true" />
+ 
+    <p:tieredMenu style="width:200px">
+        <p:submenu label="Autores" icon="ui-icon-person">
+            <p:menuitem value="Listado" outcome="/Vista/autores/List" update="messages" icon="ui-icon-print" />
+            <p:menuitem value="Sus Libros" outcome="/Vista/libros/Autor_libros" update="messages" icon="ui-icon-bookmark" />
+            <p:menuitem value="Sus Premios" outcome="/Vista/premios/Autor_premios" update="messages" icon="ui-icon-star" />
+        </p:submenu>
+        <p:submenu label="Libros" icon="ui-icon-bookmark">
+            <p:menuitem value="Listado" outcome="/Vista/libros/List" update="messages" icon="ui-icon-print" />
+            <p:menuitem value="Autores" outcome="/Vista/libros/Autor_libros" update="messages" icon="ui-icon-person" />
+            <p:menuitem value="Sus Premios" outcome="/Vista/premios/Libros_premios" update="messages" icon="ui-icon-star" />
+        </p:submenu>   
+        <p:submenu label="Premios" icon="ui-icon-star">
+            <p:menuitem value="Listado" outcome="/Vista/premios/List" update="messages" icon="ui-icon-print" />
+            <p:menuitem value="Por autor" outcome="/Vista/premios/Autor_premios" update="messages" icon="ui-icon-person" />
+            <p:menuitem value="Por libro" outcome="/Vista/premios/Libros_premios" update="messages" icon="ui-icon-bookmark" />
+        </p:submenu>
+        <p:submenu label="Países" icon="ui-icon-flag">
+            <p:menuitem value="Listado" outcome="/Vista/paises/List" update="messages" icon="ui-icon-print" />
+            <p:menuitem value="Sus autores" outcome="/Vista/paises/Paises_Autor" update="messages" icon="ui-icon-person" />
+        </p:submenu>
+    </p:tieredMenu>  
+  </h:form>
+</h:body>
+
+
+
+
+
+</html>
+

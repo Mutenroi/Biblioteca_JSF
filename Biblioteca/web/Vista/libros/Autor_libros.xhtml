@@ -1,0 +1,46 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
+      xmlns:h="http://xmlns.jcp.org/jsf/html"
+      xmlns:f="http://xmlns.jcp.org/jsf/core"
+      xmlns:p="http://primefaces.org/ui">
+
+    <ui:composition template="/template.xhtml">
+        <ui:define name="title">
+            <h:outputText value="Libros por autor"></h:outputText>
+        </ui:define>
+        <ui:define name="body">
+            
+            <h:form styleClass="jsfcrud_list_form">
+                <h:selectOneMenu id="unAutor" value="#{librosController.codAutor}">
+                    <f:selectItems value="#{autoresController.itemsAvailableSelectOne}"></f:selectItems>
+                    <p:ajax listener="#{librosController.obtener_libros_autor}" update="libros libros2"/>
+                </h:selectOneMenu>
+            
+                <br />
+                <br />
+             
+                <p:dataTable value="#{librosController.lista}" var="item"  id="libros" style="margin-bottom: 60px; width:60%; float: left">
+                    <p:column headerText="Titulo" sortBy="#{item.nomLibro}" style="text-align: center">
+                        <h:outputText value="#{item.nomLibro}" style="font-weight: bold; font-size: 18px; color: #01579B"/>
+                    </p:column>
+                    <p:column headerText="Año" sortBy="#{item.ano}" style="text-align: center; width: 50px">
+                        <h:outputText value="#{item.ano}"/>
+                    </p:column>
+                    <p:column headerText="Portada" width="80px" style="text-align: center; width: 80px">
+                        <p:lightBox styleClass="imagebox" id="lighbox1">
+                            <h:outputLink value="../../resources/Portadas/#{item.portada}" title="#{item.nomLibro}, #{item.ano}"> 
+                                   <p:graphicImage library="Portadas" height="100px" width="75px"  name="#{item.portada}" />
+                            </h:outputLink>
+                        </p:lightBox>
+                    </p:column>
+                </p:dataTable>
+                <p:galleria value="#{librosController.lista}" var="image" panelWidth="250" panelHeight="400" id="libros2" style="border:solid 1px; width:30%; margin-right:70px; float:right" showCaption="true">
+                    <p:graphicImage library="Portadas" value="../../resources/Portadas/#{image.portada}" alt="#{image.ano}" title="#{image.nomLibro}"/>
+                </p:galleria>
+            </h:form>
+        </ui:define>
+    </ui:composition>
+
+</html>
